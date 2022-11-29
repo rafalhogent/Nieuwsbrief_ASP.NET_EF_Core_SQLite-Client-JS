@@ -1,0 +1,140 @@
+
+body {
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    background-color: rgb(134, 122, 131);
+    color: black;
+}
+
+
+
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    width: 75vw;
+    max-width: 780px;
+    padding: 45px 45px;
+    border: 1px solid grey;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 8px 15px;
+    background-color: white;
+    overflow: hidden;
+    background-repeat: no-repeat;
+
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: -1;
+    background:
+        linear-gradient(40deg, rgba(131, 226, 136, 1) 0%, rgba(102, 254, 254, 1) 100%) right top/calc(100% - 0px) 40%;
+
+    background-color: white;
+    background-repeat: no-repeat;
+    transform: rotate(5deg);
+}
+
+.hidden{
+    display: none;
+}
+
+.form-title {
+    width: 95%;
+    max-width: 600px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin: auto;
+    margin-bottom: 1.5em;
+}
+
+.feedback {
+    font-size: 0.8em;
+    color: red;
+    margin: 1em 0.5em;
+}
+
+ .form-input, .btn{
+    padding: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.form-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+
+.form-input {
+    width: 100%;
+    font-size: 1em;
+}
+
+.btn {
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;  
+    padding: 15px;  
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.form-btn {
+    border-width: 1px 1px 1px 0px;
+    border-radius: 0px 8px 8px 0px;
+    margin-left: 0;
+}
+
+
+
+.btn:hover {
+    background-color: rgb(47, 86, 192);
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 660px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        /* top: 10%; */
+        width: 85vw;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .centered {
+        position: fixed;
+        top: 10vw;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+
+}
