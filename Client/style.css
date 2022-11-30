@@ -93,6 +93,7 @@ body {
     font-size: 1em;
 }
 
+
 .btn {
     border-color: grey;
     border-style: solid;
@@ -103,6 +104,18 @@ body {
     font-size: 1em;
 }
 
+.btn.active:hover {
+    background-color: rgb(47, 86, 192);
+    color: white;
+    cursor: pointer;
+}
+
+.btn.disabled {
+    background-color:gray;
+    color: rgb(82, 82, 82);
+    cursor:not-allowed;
+}
+
 .form-btn {
     border-width: 1px 1px 1px 0px;
     border-radius: 0px 8px 8px 0px;
@@ -111,11 +124,7 @@ body {
 
 
 
-.btn:hover {
-    background-color: rgb(47, 86, 192);
-    color: white;
-    cursor: pointer;
-}
+
 
 @media (max-width: 660px) {
     body {
