@@ -22,12 +22,52 @@ const validateEmail = (email) => {
 };
 
 
+function disableBtn(btn) {
+    btn.disabled = true;
+    btn.classList.add("disabled");
+    btn.classList.remove("active");
+}
 
+function enableBtn(btn) {
+    btn.disabled = false;
+    btn.classList.remove("disabled");
+    btn.classList.add("active");
+}
 
 
 function register(email) {
+    
+    disableBtn(sendBtn);
+    fetch(registerURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: email})
+    })
+    .then(res => { 
+        if (res.ok) {
+           
+            confirmation.classList.toggle("hidden");
+            emailForm.classList.toggle("hidden");
+            emailInp.value = "";
+            feedback.innerHTML = "";
+            res.text().then(data => {confirmMsg.innerHTML = data});
+            enableBtn(sendBtn);
+        }
+        else{
+            res.text().then(data => {feedback.innerHTML = data});
+            enableBtn(sendBtn);
+        }
+    })
 
-    if (email == "") {
+
+}
+
+sendBtn.onclick = async function () {
+
+
+    if (emailInp.value == "") {
         feedback.innerText = "Het email formulier mag niet leeg zijn"
         return
     }
@@ -36,32 +76,11 @@ function register(email) {
         return
     }
     else {
-        fetch(registerURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email: email})
-        })
-        .then(res => { 
-            if (res.ok) {
-               
-                confirmation.classList.toggle("hidden");
-                emailForm.classList.toggle("hidden");
-                emailInp.value = "";
-                feedback.innerHTML = "";
-                res.text().then(data => {confirmMsg.innerHTML = data})
-            }
-            else{
-                res.text().then(data => {feedback.innerHTML = data})
-            }
-        })
+        register(emailInp.value);
     }
-}
 
-sendBtn.onclick = async function () {
-    const input = emailInp.value;
-    register(input);
+
+
 }
 
 confirmBtn.onclick = function () {
