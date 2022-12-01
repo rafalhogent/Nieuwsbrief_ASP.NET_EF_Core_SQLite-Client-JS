@@ -29,22 +29,22 @@ namespace Web.Controllers
             }
             catch (EmailExistsException e)
             {
-                return base.BadRequest($"Het email adres {e.Email} is al ingeschreven");
+                return base.Ok(new FeedbackDTO(false, $"Het email adres {e.Email} is al ingeschreven"));
             }
             catch (EmailAutocorrectException e)
             {
-                return base.BadRequest($"Controlleer je invoer: {e.TypedEmail}, \nMisschien bedoel je {e.Autocorrect} ?");
+                return base.Ok(new FeedbackDTO(false, $"Controlleer je invoer: {e.TypedEmail}, \nMisschien bedoel je {e.Autocorrect} ?"));
             }
             catch (InvalidEmailFormatException e)
             {
-                return base.BadRequest($"Het e-mailadres {e.Email} is niet geldig");
+                return base.Ok(new FeedbackDTO(false, $"Het e-mailadres {e.Email} is niet geldig"));
             }
             catch(Exception e)
             {
                 return base.BadRequest("Wegens technisch probleem kunnen wij je email niet inschrijven. \n" + e.Message);
             }
-            return base.Ok($"Wij hebben je email {email.Email} ingeschreven." + 
-                            "\nBinnenkort krijg je een email met bevestiging...");
+            return base.Ok( new FeedbackDTO(true, $"Wij hebben je email {email.Email} ingeschreven." + 
+                            "\nBinnenkort krijg je een email met bevestiging..."));
         }
 
 

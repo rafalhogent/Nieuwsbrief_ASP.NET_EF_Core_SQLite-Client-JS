@@ -1,4 +1,4 @@
- "use strict";
+"use strict";
 
 const baseURL = 'https://localhost:7228/';
 
@@ -35,37 +35,40 @@ function enableBtn(btn) {
 }
 
 
-function register(email) {
-    
+async function register(email) {
+
     disableBtn(sendBtn);
-    fetch(registerURL, {
+    await fetch(registerURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: email})
+        body: JSON.stringify({ email: email })
     })
-    .then(res => { 
-        if (res.ok) {
-           
-            confirmation.classList.toggle("hidden");
-            emailForm.classList.toggle("hidden");
-            emailInp.value = "";
-            feedback.innerHTML = "";
-            res.text().then(data => {confirmMsg.innerHTML = data});
-            enableBtn(sendBtn);
-        }
-        else{
-            res.text().then(data => {feedback.innerHTML = data});
-            enableBtn(sendBtn);
-        }
-    })
-
-
+        .then(async res => {
+            if (res.ok) {
+                const fdk = await res.json();
+                console.log(fdk);
+                if (fdk.isSuccess) {
+                    confirmation.classList.toggle("hidden");
+                    emailForm.classList.toggle("hidden");
+                    confirmMsg.innerHTML = fdk.message
+                    emailInp.value = "";
+                } else {
+                    feedback.innerHTML = fdk.message
+                }
+                enableBtn(sendBtn);
+            } else {
+                confirmMsg.innerHTML = "Er is een fout gegaan. Contacteer helpdesk";
+                confirmation.classList.toggle("hidden");
+                emailForm.classList.toggle("hidden");
+            }
+        })
 }
 
 sendBtn.onclick = async function () {
 
+    feedback.innerHTML = "";
 
     if (emailInp.value == "") {
         feedback.innerText = "Het email formulier mag niet leeg zijn"
@@ -76,14 +79,12 @@ sendBtn.onclick = async function () {
         return
     }
     else {
-        register(emailInp.value);
+        await register(emailInp.value);
     }
-
-
-
 }
 
 confirmBtn.onclick = function () {
     confirmation.classList.toggle("hidden");
     emailForm.classList.toggle("hidden");
+    enableBtn(sendBtn);
 }
